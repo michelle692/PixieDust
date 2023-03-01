@@ -11,7 +11,7 @@ var clock = new THREE.Clock();
 export function Frames(props) {
   const ref = useRef();
   //TODO: replace this with the actual texture that gets passed in from app
-  const texture = useTexture(require('./../assets/images/Dali.jpeg'));
+  const texture = props.textureID;
   return (
     <group>
       <mesh position={[-1.16, 0, 0]}>
