@@ -5,6 +5,8 @@ import { LandingPage } from './Landing';
 import { PixieDust } from "./PixieDust";
 import { FrequencyTable } from "./components/FrequencyTable";
 
+import * as THREE from 'three';
+
 import './css/App.css';
 
 
@@ -14,7 +16,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       audioData: new Uint8Array(0),
-      normalizedData: new Uint8Array(0)
+      normalizedData: new Uint8Array(0),
     }
 
     this.NUM_OF_BINS = 20;
@@ -26,9 +28,7 @@ class App extends React.Component {
     this.audioAnalyzer = new AudioAnalyzer();
 
     this.canvas = React.createRef();
-
-    //TODO: move this into state and have it open the image after uploadImage()
-    this.textureID = './../assets/images/Dali.jpeg';
+    this.textureID = './../assets/images/Dali.jpeg'
   }
 
   // Asks the browser for access to use the microphone. When the user
@@ -62,11 +62,14 @@ class App extends React.Component {
     }
   }
 
-  uploadImage() {
+  uploadImage(imageUrl) {
     // This will be the callback function passed into landing page.
     // This should trigger a browser file upload.
     // If file upload is successful (browser api successfully provides a link or smth) -> save image to the texture variable.
     // If the instance variable is null then this means there is no image, if it is NOT null, then there is an image.
+    const textureLoader = new THREE.TextureLoader()
+    textureLoader.crossOrigin = "Anonymous"
+    this.textureID = textureLoader.load(imageUrl)
   }
 
   loop() {
