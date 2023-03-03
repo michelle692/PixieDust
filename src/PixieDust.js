@@ -6,8 +6,10 @@ import { Frames } from './components/Frames';
 import { ParticleSphere } from './components/ParticleSphere';
 import { BasicSphere } from './components/BasicSphere';
 
+import { Shape } from './components/Shape';
 
 export function PixieDust(props) {
+  const freqArray = props.freqData;
   const f = props.freqData[1] / 255.0;
   const f1 = props.freqData[2] / 255.0;
   const f2 = props.freqData[4] / 255.0;
@@ -24,6 +26,7 @@ export function PixieDust(props) {
           <MovingStars scale={0.1} move={f} /> */}
 
           <BasicSphere />
+          <Shape textureID={props.textureID} freq={freqArray} />
 
           <ParticleSphere count={15000} />
 
