@@ -3,6 +3,9 @@ import { OrbitControls, Environment, useTexture } from '@react-three/drei'
 import { useRef, Suspense } from 'react';
 import { MovingStars } from './components/MovingStars';
 import { Frames } from './components/Frames';
+import { ParticleSphere } from './components/ParticleSphere';
+import { BasicSphere } from './components/BasicSphere';
+
 
 export function PixieDust(props) {
   const f = props.freqData[1] / 255.0;
@@ -17,11 +20,14 @@ export function PixieDust(props) {
         <Suspense fallback={null}>
 
 
-          <Frames textureID={props.textureID} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} />
-          <MovingStars scale={0.1} move={f} />
+          {/* <Frames textureID={props.textureID} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} />
+          <MovingStars scale={0.1} move={f} /> */}
 
+          <BasicSphere />
 
-          {/* <OrbitControls /> */}
+          <ParticleSphere count={15000} />
+
+          {/* <OrbitControls autoRotate/> */}
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
           <Environment preset="warehouse" />
