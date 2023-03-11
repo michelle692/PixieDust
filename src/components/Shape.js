@@ -3,8 +3,8 @@ import { useRef, Suspense } from 'react';
 import { extend, useFrame } from '@react-three/fiber'
 
 import { useTexture } from '@react-three/drei';
-import { GradientShader2Material } from "./../shaders/gradient2";
-extend({ GradientShader2Material });
+import { GradientShader3Material } from "./../shaders/gradient3";
+extend({ GradientShader3Material });
 
 var clock = new THREE.Clock();
 
@@ -16,9 +16,8 @@ export function Shape(props) {
     <group>
       <mesh position={[0, 0, 0]}>
         <planeBufferGeometry args={[1.2, 1.2, 8, 8]} />
-        <gradientShader2Material uTime={clock.getElapsedTime()} uColor={"green"} uTexture={texture} uFreqData={props.freq} ref={ref} />
+        <gradientShader3Material uTime={clock.getElapsedTime()} uColor1={"blue"} uColor2={"red"} uColor3={"pink"} uTexture={texture} ref={ref} />
       </mesh>
     </group>
-
   )
 }
