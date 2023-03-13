@@ -6,7 +6,7 @@ import { Frames } from './components/Frames';
 import { ParticleSphere } from './components/ParticleSphere';
 import { BasicSphere } from './components/BasicSphere';
 
-import { Shape } from './components/Shape';
+import { Background } from './components/Background';
 import { TestBox } from './components/TestBox';
 
 export function PixieDust(props) {
@@ -22,7 +22,7 @@ export function PixieDust(props) {
       <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 10], fov: 10, near: 0.1 }} onpmrthographic={true}>
         <Suspense fallback={null}>
     
-          <Shape textureID={props.textureID} freq={freqArray}/>
+          <Background textureID={props.textureID} freq={freqArray}/>
           <BasicSphere />
           <ParticleSphere count={15000} />
 

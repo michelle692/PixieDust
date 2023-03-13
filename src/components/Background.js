@@ -9,7 +9,7 @@ extend({ GradientShader3Material });
 
 var clock = new THREE.Clock();
 
-export function Shape(props) {
+export function Background(props) {
   const ref = useRef();
   //TODO: replace this with the actual texture that gets passed in from app
   const texture = useTexture(require('./../assets/images/Dali.jpeg'));
