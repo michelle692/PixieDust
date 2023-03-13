@@ -6,7 +6,8 @@ import { Frames } from './components/Frames';
 import { ParticleSphere } from './components/ParticleSphere';
 import { BasicSphere } from './components/BasicSphere';
 
-import { Shape } from './components/Shape';
+import { Background } from './components/Background';
+import { TestBox } from './components/TestBox';
 
 export function PixieDust(props) {
   const freqArray = props.freqData;
@@ -22,15 +23,17 @@ export function PixieDust(props) {
         <Suspense fallback={null}>
 
 
-          {/* <Frames textureID={props.textureID} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} />
-          <MovingStars scale={0.1} move={f} /> */}
+          {/* <Frames textureID={props.textureID} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} /> */}
+          {/* <MovingStars scale={0.1} move={f} /> */}
+
+          {/* <TestBox textureID={props.textureID} />
+
+          <Background textureID={props.textureID} freq={freqArray} /> */}
 
           <BasicSphere />
-          <Shape textureID={props.textureID} freq={freqArray} />
-
           <ParticleSphere count={15000} />
 
-          {/* <OrbitControls autoRotate/> */}
+          <OrbitControls />
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
           <Environment preset="warehouse" />

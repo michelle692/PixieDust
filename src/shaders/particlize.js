@@ -37,7 +37,7 @@ export const Particlize = shaderMaterial(
   // Fragment shader
   glsl`
     void main() {
-      gl_FragColor = vec4(0.34, 0.53, 0.96, 1.0);
+      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
     }
   `
 );

@@ -10,7 +10,7 @@ export function BasicSphere(props) {
   return (
     <points ref={points}>
       <sphereGeometry args={[0.5, 48, 48]} />
-      <pointsMaterial color="#5786F5" size={0.05} sizeAttenuation />
+      <pointsMaterial color="#FFFFFF" size={0.05} sizeAttenuation />
     </points>
   )
 }

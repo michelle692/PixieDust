@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { shaderMaterial } from "@react-three/drei";
 import glsl from "babel-plugin-glsl/macro";
 
-export const BrandonShaderMaterial = shaderMaterial(
+export const HalftoneShaderMaterial = shaderMaterial(
     // Uniform
     { uTime: 0, colorA: new THREE.Color(0.0, 0.0, 0.0), colorB: new THREE.Color(0.0, 0.0, 0.0) }, 
     // Vertex Shader
