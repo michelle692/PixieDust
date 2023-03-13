@@ -25,10 +25,11 @@ export function PixieDust(props) {
           {/* /MICHELLE TEST/ <Frames textureID={props.textureID} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} />
           <MovingStars scale={0.1} move={f} /> 
           <TestBox textureID={props.textureID} />
-          <Background textureID={props.textureID} freq={freqArray} /> /MICHELLE TEST/ */}
+          <Background textureID={props.textureID} freq={freqArray} /> 
 
           <BasicSphere />
           <ParticleSphere count={15000} />
+          /MICHELLE TEST/ */}
 
           <OrbitControls />
           <pointLight position={[500, 500, 0]} />
