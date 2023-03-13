@@ -9,15 +9,15 @@ extend({ GradientShader3Material });
 
 var clock = new THREE.Clock();
 
-export function Background(props) {
+export function Shape(props) {
   const ref = useRef();
   //TODO: replace this with the actual texture that gets passed in from app
   const texture = useTexture(require('./../assets/images/Dali.jpeg'));
   return (
     <group>
       <mesh position={[0, 0, 0]}>
-        <planeBufferGeometry args={[4, 2, 8, 8]} />
-        <gradientShader3Material uTime={clock.getElapsedTime()} uColor1={"blue"} uColor2={"red"} uColor3={"pink"} uTexture={texture} ref={ref} />
+        <planeBufferGeometry args={[4, 3, 8, 8]} />
+        <gradientShader3Material uTime={clock.getElapsedTime()} uColor1={"purple"} uColor2={"red"} uColor3={"pink"} uTexture={texture} ref={ref} />
       </mesh>
     </group>
   )
