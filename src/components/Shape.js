@@ -1,13 +1,11 @@
 import * as THREE from 'three'
 import { useRef, Suspense } from 'react';
 import { extend, useFrame } from '@react-three/fiber'
-
 import { useTexture } from '@react-three/drei';
-import { GradientShader2Material } from "../shaders/gradient2";
-import { GradientShaderMaterial } from '../shaders/gradient';
 
-extend({ GradientShader2Material });
-extend({GradientShaderMaterial});
+import { GradientShader3Material } from "./../shaders/gradient3";
+extend({ GradientShader3Material });
+
 
 var clock = new THREE.Clock();
 
@@ -17,12 +15,10 @@ export function Background(props) {
   const texture = useTexture(require('./../assets/images/Dali.jpeg'));
   return (
     <group>
-      <mesh position={[0, 0, -1]}>
+      <mesh position={[0, 0, 0]}>
         <planeBufferGeometry args={[4, 2, 8, 8]} />
-        <gradientShader2Material uTime={clock.getElapsedTime()} uColor={"green"} uTexture={texture} uFreqData={props.freq} ref={ref} />
+        <gradientShader3Material uTime={clock.getElapsedTime()} uColor1={"blue"} uColor2={"red"} uColor3={"pink"} uTexture={texture} ref={ref} />
       </mesh>
     </group>
-
-
   )
 }
