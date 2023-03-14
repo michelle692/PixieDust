@@ -70,9 +70,6 @@ class App extends React.Component {
     const textureLoader = new THREE.TextureLoader()
     textureLoader.crossOrigin = "Anonymous"
     this.textureID = textureLoader.load(imageUrl)
-
-    console.log(this.textureID)
-    console.log(imageUrl)
   }
 
   loop() {
