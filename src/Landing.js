@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber'
+import { DropDown } from './components/DropDown';
 import { StartButton } from "./components/StartButton";
 import { UploadButton } from "./components/UploadButton"
 
@@ -12,6 +13,7 @@ export function LandingPage(props) {
           <ambientLight intensity={0.4} />
         </Canvas>
         <UploadButton click={props.uploadImage}/>
+        <DropDown/>
         
       </div>
   )
