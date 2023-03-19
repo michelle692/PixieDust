@@ -6,12 +6,34 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 
 import '../css/UploadButton.css'
 
-import { Upload } from "upload-js"
-
 extend({ TextGeometry });
 
-// maybe shouldn't keep api key here, fine for now
-const upload = Upload({ apiKey: "public_12a1xzc9sZbFCGnuUjHhzBCNkEAs" });
+const sendRequest = async(img) => {
+  var myHeaders = new Headers();
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: img,
+    redirect: 'follow'
+  };
+
+  fetch("https://6ckjv4toq0.execute-api.us-east-1.amazonaws.com/default/upload", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
+
+function getBase64(file) {
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function () {
+    sendRequest(reader.result);
+  };
+  reader.onerror = function (error) {
+    console.log('Error: ', error);
+  };
+}
 
 export function UploadButton(props){
   const hiddenFileInput = useRef(null)
@@ -22,7 +44,6 @@ export function UploadButton(props){
 
   const handleClick = () => {
     hiddenFileInput.current.click()
-    props.click()
   }
 
   return (
@@ -34,12 +55,13 @@ export function UploadButton(props){
 
       <input
         type="file"
-        accept="image/png, image/gif, image/jpeg"
+        accept="image/png, image/jpeg"
         ref={hiddenFileInput}
         style={{display: 'none'}}
         onChange={async(event) => {
-          const file = await upload.uploadFile(event.target.files[0])
-          props.click(file.fileUrl)
+          const file = event.target.files[0]
+          getBase64(file);
+          props.click();
         }}
       />
     </>

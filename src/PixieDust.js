@@ -16,10 +16,8 @@ export function PixieDust(props) {
       <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 10], fov: 10, near: 0.1 }} onpmrthographic={true}>
         <Suspense fallback={null}>
 
-
-          <Frames textureID={props.textureID} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} />
+          <Frames textureURL={props.textureURL} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} />
           <MovingStars scale={0.1} move={f} />
-
 
           {/* <OrbitControls /> */}
           <pointLight position={[500, 500, 0]} />
