@@ -62,7 +62,7 @@ class App extends React.Component {
     }
   }
 
-  uploadImage() {
+  uploadImage(imageUrl) {
     // This will be the callback function passed into landing page.
     // This should trigger a browser file upload.
     // If file upload is successful (browser api successfully provides a link or smth) -> save image to the texture variable.
