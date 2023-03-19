@@ -3,8 +3,14 @@ import { OrbitControls, Environment, useTexture } from '@react-three/drei'
 import { useRef, Suspense } from 'react';
 import { MovingStars } from './components/MovingStars';
 import { Frames } from './components/Frames';
+import { ParticleSphere } from './components/ParticleSphere';
+import { BasicSphere } from './components/BasicSphere';
+
+import { Background } from './components/Background';
+import { TestBox } from './components/TestBox';
 
 export function PixieDust(props) {
+  const freqArray = props.freqData;
   const f = props.freqData[1] / 255.0;
   const f1 = props.freqData[2] / 255.0;
   const f2 = props.freqData[4] / 255.0;
@@ -15,6 +21,10 @@ export function PixieDust(props) {
     <div style={{ width: "100vw", height: "100vh" }}>
       <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 10], fov: 10, near: 0.1 }} onpmrthographic={true}>
         <Suspense fallback={null}>
+    
+          <Background textureID={props.textureID} freq={freqArray}/>
+          <BasicSphere />
+          <ParticleSphere count={15000} />
 
           <Frames textureURL={props.textureURL} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} />
           <MovingStars scale={0.1} move={f} />
