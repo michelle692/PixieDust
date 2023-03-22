@@ -28,7 +28,7 @@ class App extends React.Component {
     this.audioAnalyzer = new AudioAnalyzer();
 
     this.canvas = React.createRef();
-    this.textureID = './../assets/images/Dali.jpeg'
+    this.textureURL = "https://pixiedust-vip.s3.amazonaws.com/Dali.jpeg";
   }
 
   // Asks the browser for access to use the microphone. When the user
@@ -67,9 +67,8 @@ class App extends React.Component {
     // This should trigger a browser file upload.
     // If file upload is successful (browser api successfully provides a link or smth) -> save image to the texture variable.
     // If the instance variable is null then this means there is no image, if it is NOT null, then there is an image.
-    const textureLoader = new THREE.TextureLoader()
-    textureLoader.crossOrigin = "Anonymous"
-    this.textureID = textureLoader.load(imageUrl)
+    
+    this.textureURL = "https://pixiedust-vip.s3.amazonaws.com/pixie.png"
   }
 
   loop() {
@@ -145,7 +144,7 @@ class App extends React.Component {
     else {
       return (
         <div style={{ width: "100vw", height: "100vh" }}>
-          <PixieDust freqData={this.state.normalizedData} textureID={this.textureID} />
+          <PixieDust freqData={this.state.normalizedData} textureURL={this.textureURL} />
           <FrequencyTable canvas={this.canvas} />
         </div>
       );
