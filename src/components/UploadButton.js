@@ -4,37 +4,35 @@ import { extend } from '@react-three/fiber'
 import { useRef } from 'react';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 
-import { Upload } from "upload-js"
+import '../css/UploadButton.css'
 
 extend({ TextGeometry });
 
-// maybe shouldn't keep api key here, fine for now
-const upload = Upload({ apiKey: "public_12a1xzc9sZbFCGnuUjHhzBCNkEAs" });
+const sendRequest = async(img) => {
+  var myHeaders = new Headers();
 
-/* Button CSS */
-const buttonStyle = {
-  backgroundColor: "#FFFFFF",
-  border: "1px solid rgb(209,213,219)",
-  borderRadius: ".5rem",
-  boxSizing: "border-box",
-  color: "#111827",
-  fontFamily: "Roboto",
-  fontSize: ".5rem",
-  fontWeight: "600",
-  lineHeight: "1.25rem",
-  padding: ".2rem .5rem",
-  textDecoration: "none #D1D5DB solid",
-  textDecorationThickness: "auto",
-  boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-  cursor: "pointer",
-  userSelect: "none",
-  position: "absolute",
-  bottom: "3vh",
-  left: "2vw",
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: img,
+    redirect: 'follow'
+  };
 
-  "&:hover": {
-    backgroundColor: "rgb(249,250,251)"
-  }
+  fetch("https://6ckjv4toq0.execute-api.us-east-1.amazonaws.com/default/upload", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
+
+function getBase64(file) {
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function () {
+    sendRequest(reader.result);
+  };
+  reader.onerror = function (error) {
+    console.log('Error: ', error);
+  };
 }
 
 export function UploadButton(props){
@@ -46,23 +44,24 @@ export function UploadButton(props){
 
   const handleClick = () => {
     hiddenFileInput.current.click()
-    props.click()
   }
 
   return (
     <>
       <button
         onClick={handleClick}
-        style={buttonStyle}
+        className="Button"
       >Upload</button>
 
       <input
         type="file"
+        accept="image/png, image/jpeg"
         ref={hiddenFileInput}
         style={{display: 'none'}}
         onChange={async(event) => {
-          const file = await upload.uploadFile(event.target.files[0])
-          props.click(file.fileUrl)
+          const file = event.target.files[0]
+          getBase64(file);
+          props.click();
         }}
       />
     </>

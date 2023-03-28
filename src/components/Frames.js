@@ -11,7 +11,11 @@ var clock = new THREE.Clock();
 export function Frames(props) {
   const ref = useRef();
   //TODO: replace this with the actual texture that gets passed in from app
-  const texture = props.textureID;
+
+  const textureLoader = new THREE.TextureLoader()
+  textureLoader.crossOrigin = "Anonymous"
+  const texture = textureLoader.load(props.textureURL)
+
   return (
     <group>
       <mesh position={[-1.16, 0, 0]}>

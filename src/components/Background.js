@@ -25,7 +25,7 @@ export function Background(props) {
     <group>
       <mesh position={[0, 0, 0]}>
         <planeBufferGeometry args={[4, 3, 8, 8]} />
-        <gradientShader3Material uTime={clock.getElapsedTime()} uColor1={"purple"} uColor2={"red"} uColor3={"pink"} uTexture={texture} ref={ref} />
+        <gradientShader3Material uFreqArray={props.freq} uTime={clock.getElapsedTime()} uColor1={"cyan"} uColor2={"red"} uColor3={"pink"} uTexture={texture} ref={ref} />
       </mesh>
     </group>
   )
