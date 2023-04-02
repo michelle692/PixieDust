@@ -3,6 +3,8 @@ import { useRef, Suspense } from 'react';
 import { extend, useFrame } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei';
 
+import backgroundColor from './DropDown';
+
 import { GradientShader3Material } from "./../shaders/gradient3";
 import { ParticlizeImgShaderMaterial } from "./../shaders/particlizeImg";
 
@@ -16,9 +18,15 @@ var clock = new THREE.Clock();
 
 export function Background(props) {
   const ref = useRef();
+  
   const textureLoader = new THREE.TextureLoader()
   textureLoader.crossOrigin = "Anonymous"
   const texture = textureLoader.load(props.textureURL)
+
+  //receives theme chosen from dropdown. currently in form of string description, ie 'party' and 'mood'
+  //will be undefined if no option is chosen. not sure how to set a default without making the dropdown display the default also :/
+  const bgc = backgroundColor.theme;
+  //testing: console.log(bgc);
 
   return (
     <group>
