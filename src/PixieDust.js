@@ -7,7 +7,7 @@ import { ParticleSphere } from './components/ParticleSphere';
 import { BasicSphere } from './components/BasicSphere';
 
 import { Background } from './components/Background';
-import { TestBox } from './components/TestBox';
+import { ParticleImage } from './components/ParticleImage';
 
 export function PixieDust(props) {
   const freqArray = props.freqData;
@@ -19,15 +19,17 @@ export function PixieDust(props) {
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 10], fov: 10, near: 0.1 }} onpmrthographic={true}>
+      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 10], fov: 10, near: 0.1 }}>
         <Suspense fallback={null}>
     
-          <Background textureID={props.textureID} freq={freqArray}/>
-          <BasicSphere />
-          <ParticleSphere count={15000} />
+          {/* <Background textureURL={props.textureURL} freq={freqArray}/> */}
+          {/* <BasicSphere />
+          <ParticleSphere count={15000} /> */}
+          <ParticleImage textureURL={props.textureURL}/>
 
-          <Frames textureURL={props.textureURL} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} />
-          <MovingStars scale={0.1} move={f} />
+          {/* <Frames textureURL={props.textureURL} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} /> */}
+
+          {/* <MovingStars scale={0.1} move={f} /> */}
 
           {/* <OrbitControls /> */}
           <pointLight position={[500, 500, 0]} />

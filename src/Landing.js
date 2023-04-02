@@ -12,7 +12,6 @@ export function LandingPage(props) {
           <Html >
             <UploadButton click={props.uploadImage}/>
           </Html>
-          {/* put an upload component here and then pass in the upload image callback function*/}
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
         </Canvas>
