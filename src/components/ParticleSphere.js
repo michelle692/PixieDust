@@ -13,6 +13,7 @@ export function ParticleSphere(props) {
 
   const points = useRef();
 
+  // Create a sphere of particles using the parametric equation of a sphere
   const particlesPosition = useMemo(() => {
     const positions = new Float32Array(count * 3);
     

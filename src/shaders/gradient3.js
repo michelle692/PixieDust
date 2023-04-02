@@ -84,6 +84,7 @@ export const GradientShader3Material = shaderMaterial(
             idx = i;
           }
         }
+
         if (idx <= 1) {
           color1 = uColors[0];
         } else if (idx <= 3) {
