@@ -15,7 +15,6 @@ export function LandingPage(props) {
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
         </Canvas>
-        <UploadButton click={props.uploadImage}/>
         <DropDown/>
         
       </div>
