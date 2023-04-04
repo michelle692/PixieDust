@@ -22,16 +22,16 @@ export function PixieDust(props) {
       <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 10], fov: 10, near: 0.1 }}>
         <Suspense fallback={null}>
     
-          {/* <Background textureURL={props.textureURL} freq={freqArray}/> */}
-          {/* <BasicSphere />
-          <ParticleSphere count={15000} /> */}
-          <ParticleImage textureURL={props.textureURL}/>
+          <Background textureURL={props.textureURL} freq={freqArray}/>
+          <BasicSphere />
+          <ParticleSphere count={15000} />
+          {/* <ParticleImage textureURL={props.textureURL}/> */}
 
           {/* <Frames textureURL={props.textureURL} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} /> */}
 
           {/* <MovingStars scale={0.1} move={f} /> */}
 
-          {/* <OrbitControls /> */}
+          <OrbitControls />
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
           <Environment preset="warehouse" />
