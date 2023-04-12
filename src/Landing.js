@@ -2,19 +2,23 @@ import { Canvas } from '@react-three/fiber'
 import { DropDown } from './components/DropDown';
 import { Warning } from './components/Warning';
 import { StartButton } from "./components/StartButton";
-import { Html } from '@react-three/drei'
+import { Html, OrbitControls } from '@react-three/drei'
 import ImageUploadBtn from './components/ImageUploadBtn';
+import { BasicSphere } from './components/BasicSphere';
+import { ParticleSphere } from './components/ParticleSphere';
 
 export function LandingPage(props) {
   return (
       <div>
         <Canvas style={{ height: `100vh`, width: '100vw' }} >
-        <StartButton click={props.toggleMicrophone} />
+          <StartButton click={props.toggleMicrophone} />
+          <ParticleSphere count={15000} />
           <Html >
             <ImageUploadBtn loadedTexture={props.loadedTexture}/>
           </Html>
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
+          <OrbitControls/>
         </Canvas>
         <DropDown/>
         <Warning/>

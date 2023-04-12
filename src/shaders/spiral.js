@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { shaderMaterial } from "@react-three/drei";
 import glsl from "babel-plugin-glsl/macro";
 
-export const Particlize = shaderMaterial(
+export const SpiralShaderMaterial = shaderMaterial(
   //Uniform
   { uTime: 0, radius: 0 },
 
@@ -23,7 +23,7 @@ export const Particlize = shaderMaterial(
 
     void main() {
       float distanceFactor = pow(uRadius - distance(position, vec3(0.0)), 2.0);
-      vec3 particlePosition = position * rotation3dY(uTime * 0.2 * distanceFactor);
+      vec3 particlePosition = position * rotation3dY(uTime * 0.02 * distanceFactor);
 
       vec4 modelPosition = modelMatrix * vec4(particlePosition, 1.0);
       vec4 viewPosition = viewMatrix * modelPosition;

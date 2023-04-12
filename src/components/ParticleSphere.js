@@ -2,14 +2,14 @@ import * as THREE from 'three'
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, extend, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
-import { Particlize } from '../shaders/particlize';
-extend ({ Particlize });
+import { SpiralShaderMaterial } from '../shaders/spiral';
+extend ({ SpiralShaderMaterial });
 
 var clock = new THREE.Clock();
 
 export function ParticleSphere(props) {
   const { count } = props;
-  const radius = 1;
+  const radius = 5.0;
 
   const points = useRef();
 
@@ -32,6 +32,8 @@ export function ParticleSphere(props) {
     return positions;
   }, [count]);
 
+  useFrame(({ clock }) => (points.current.uTime = clock.getElapsedTime()));
+
   return (
     <points>
       <bufferGeometry>
@@ -42,7 +44,7 @@ export function ParticleSphere(props) {
           itemSize={3}
         />
       </bufferGeometry>
-      <particlize
+      <spiralShaderMaterial
         uTime={clock.getElapsedTime()}
         radius={radius}
         ref={points}

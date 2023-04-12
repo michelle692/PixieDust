@@ -27,7 +27,7 @@ export function StartButton(props){
   const ref = useRef();
   return (
     <mesh
-      position={[-2, 0, 0]}
+      position={[-1.8, -0.3, 0]}
       onClick={props.click}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
