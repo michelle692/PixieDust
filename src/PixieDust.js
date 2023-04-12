@@ -1,5 +1,5 @@
 import { Canvas, extend, useFrame } from '@react-three/fiber'
-import { OrbitControls, Environment, useTexture } from '@react-three/drei'
+import { OrbitControls, Environment, useTexture, PerspectiveCamera } from '@react-three/drei'
 import { useRef, Suspense } from 'react';
 import { MovingStars } from './components/MovingStars';
 import { Frames } from './components/Frames';
@@ -7,29 +7,27 @@ import { ParticleSphere } from './components/ParticleSphere';
 import { BasicSphere } from './components/BasicSphere';
 
 import { Background } from './components/Background';
-import { ParticleImage } from './components/ParticleImage';
+import { ParticleTest } from './components/Test';
+import { ParticlePlane } from './components/ParticlePlane';
+
 
 export function PixieDust(props) {
   const freqArray = props.freqData;
-  const f = props.freqData[1] / 255.0;
-  const f1 = props.freqData[2] / 255.0;
-  const f2 = props.freqData[4] / 255.0;
-  const f3 = props.freqData[8] / 255.0;
-  const f4 = props.freqData[10] / 255.0;
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 10], fov: 10, near: 0.1 }}>
+      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 2], zoom: 550}} orthographic={true}>
         <Suspense fallback={null}>
     
           <Background textureURL={props.textureURL} freq={freqArray}/>
-          <BasicSphere />
-          <ParticleSphere count={15000} />
-          {/* <ParticleImage textureURL={props.textureURL}/> */}
+          {/* <BasicSphere />
+          <ParticleSphere count={15000} /> */}
+          {/* <ParticleTest textureURL={props.textureURL}/> */}
 
-          {/* <Frames textureURL={props.textureURL} freq={f} freq1={f1} freq2={f2} freq3={f3} freq4={f4} /> */}
+          <ParticlePlane texture={props.texture}/>
 
-          {/* <MovingStars scale={0.1} move={f} /> */}
+
+          {/* <MovingStars scale={0.1} move={0} /> */}
 
           <OrbitControls />
           <pointLight position={[500, 500, 0]} />

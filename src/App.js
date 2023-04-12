@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import AudioAnalyzer from './utils/AudioAnalyzer';
 import React from "react";
 
@@ -5,9 +6,14 @@ import { LandingPage } from './Landing';
 import { PixieDust } from "./PixieDust";
 import { FrequencyTable } from "./components/FrequencyTable";
 
-import * as THREE from 'three';
 
 import './css/App.css';
+
+const NUM_OF_BINS = 20;
+
+// Closer to 0.0 is SLOWER REDUCTION
+// Closer to 1.0 is FASTER REDUCTION
+const DAMPING_WEIGHT = 0.02;
 
 
 //UI editor
@@ -16,19 +22,36 @@ class App extends React.Component {
     super(props);
     this.state = {
       audioData: new Uint8Array(0),
-      normalizedData: new Uint8Array(0),
+      normalizedData: new Uint8Array(new ArrayBuffer(NUM_OF_BINS)),
+      dampedData: new Uint8Array(new ArrayBuffer(NUM_OF_BINS))
     }
-
-    this.NUM_OF_BINS = 20;
     
     this.toggleMicrophone = this.toggleMicrophone.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
     this.loop = this.loop.bind(this);
+    this.loadedTexture = this.loadedTexture.bind(this);
 
     this.audioAnalyzer = new AudioAnalyzer();
 
     this.canvas = React.createRef();
     this.textureURL = "https://pixiedust-vip.s3.amazonaws.com/Dali.jpeg";
+
+    const textureLoader = new THREE.TextureLoader()
+    textureLoader.crossOrigin = "Anonymous"
+    this.loadedTexture(textureLoader.load(this.textureURL))
+  }
+
+  applySmoothDamping(normalized) {
+    let dampedData = this.state.dampedData;
+    for (let i = 0; i < NUM_OF_BINS; i++) {
+      if (normalized[i] < dampedData[i]) {
+        dampedData[i] = DAMPING_WEIGHT * normalized[i] + (1 - DAMPING_WEIGHT) * dampedData[i];
+
+      }else{
+        dampedData[i] = normalized[i];
+      }
+    }
+    return dampedData;
   }
 
   // Asks the browser for access to use the microphone. When the user
@@ -69,6 +92,7 @@ class App extends React.Component {
     // If the instance variable is null then this means there is no image, if it is NOT null, then there is an image.
     
     this.textureURL = "https://pixiedust-vip.s3.amazonaws.com/pixie.png"
+    console.log("image uploaded", imageUrl);
   }
 
   loop() {
@@ -77,29 +101,34 @@ class App extends React.Component {
 
       const audioData = this.audioAnalyzer.getAudioData();
 
-      const buffer = new ArrayBuffer(this.NUM_OF_BINS);
+      const buffer = new ArrayBuffer(NUM_OF_BINS);
       const normalizedData = new Uint8Array(buffer);
 
-      const size = audioData.length;
-      const bucket_size = Math.floor(size / this.NUM_OF_BINS);
+      const size = audioData.length - 30;
+      const bucket_size = Math.floor(size / NUM_OF_BINS);
+  
 
-      for (var i = 0; i < this.NUM_OF_BINS; i++) {
+      for (var i = 0; i < NUM_OF_BINS; i++) {
         const start = bucket_size * i;
 
         // in case the last bucket does not divide evenly
-        const end = bucket_size * (i + 1) > audioData.length ? audioData.length : bucket_size * (i + 1);
+        const end = bucket_size * (i + 1) > audioData.length - 30 ? audioData.length - 30 : bucket_size * (i + 1);
 
         var sum = 0;
         for (var j = start; j < end; j++) {
           var freq = audioData[j];
           sum += freq;
         }
-        var avg = sum / (end - start);
+        var avg = sum / ((end) - start);
+        if (i === 0) {
+          avg *= 0.5;
+        }
+ 
 
         normalizedData[i] = avg;
       }
 
-      this.setState({ audioData: audioData, normalizedData: normalizedData });
+      this.setState({ audioData: audioData, normalizedData: normalizedData, dampedData: this.applySmoothDamping(normalizedData) });
     }
 
     this.rafId = requestAnimationFrame(this.loop);
@@ -108,7 +137,7 @@ class App extends React.Component {
   // this gets called when the frame needs to be refreshed... DRAW()
   componentDidUpdate() {
 
-    const audioData = this.state.normalizedData;
+    const audioData = this.state.dampedData;
 
     const canvas = this.canvas.current;
     const height = canvas.height;
@@ -134,17 +163,22 @@ class App extends React.Component {
     context.stroke();
   }
 
+  loadedTexture(texture) {
+    console.log("Loaded following texture to state.", texture)
+    this.texture = texture;
+  }
+
   render() {
     // if we don't have access to the mic, OR there is no image, keep calling the landing page
     if (!this.audioAnalyzer.isConnected()) {
       return (
-        <LandingPage toggleMicrophone={this.toggleMicrophone} uploadImage={this.uploadImage} />
+        <LandingPage toggleMicrophone={this.toggleMicrophone} loadedTexture={this.loadedTexture} />
       )
     }
     else {
       return (
         <div style={{ width: "100vw", height: "100vh" }}>
-          <PixieDust freqData={this.state.normalizedData} textureURL={this.textureURL} />
+          <PixieDust freqData={this.state.dampedData} texture={this.texture} />
           <FrequencyTable canvas={this.canvas} />
         </div>
       );

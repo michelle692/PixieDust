@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
 export function Star(props) {
@@ -11,7 +10,7 @@ export function Star(props) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh
+      <points
         castShadow
         receiveShadow
         geometry={nodes.pMesh1.geometry}
