@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { DropDown } from './components/DropDown';
+import { Warning } from './components/Warning';
 import { StartButton } from "./components/StartButton";
 import { Html } from '@react-three/drei'
 import ImageUploadBtn from './components/ImageUploadBtn';
@@ -16,7 +17,7 @@ export function LandingPage(props) {
           <ambientLight intensity={0.4} />
         </Canvas>
         <DropDown/>
-        
+        <Warning/>
       </div>
   )
 }
