@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import * as THREE from 'three';
 
+import '../css/UploadButton.css'
+
 /**
  * FileInput component that allows selecting a file.
  * @param {object} props - The props object.
