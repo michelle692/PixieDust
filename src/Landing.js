@@ -18,7 +18,6 @@ export function LandingPage(props) {
           </Html>
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
-          <OrbitControls/>
         </Canvas>
         <DropDown/>
         <Warning/>
