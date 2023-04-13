@@ -50,7 +50,7 @@ export function DropDown(props){
     >  
         <option> ---Choose theme--- </option>  
         <option value="mood"> Mood </option>  
-        <option value="party"> Party </option> 
+        <option value="image"> Image </option> 
         {/*add options here for more theme choices*/}
 
     </select>
