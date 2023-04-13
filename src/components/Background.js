@@ -7,10 +7,12 @@ import backgroundColor from './DropDown';
 import { GradientShader3Material } from "./../shaders/gradient3";
 import { ParticlizeImgShaderMaterial } from "./../shaders/particlizeImg";
 import { BgGradientShaderMaterial } from '../shaders/bggradient';
+import { ImgBgShaderMaterial } from '../shaders/imgbgshader';
 
 extend({ GradientShader3Material });
 extend({ ParticlizeImgShaderMaterial });
 extend({ BgGradientShaderMaterial });
+extend({ ImgBgShaderMaterial });
 
 
 
@@ -48,11 +50,21 @@ export function Background(props) {
 
   const color = colors[idx];
 
+  const color1 = new THREE.Color(0x1f2b14);
+  const color2 = new THREE.Color(0xd1e9ad);
+  const color3 = new THREE.Color(0x6b894b);
+
+  const color4 = new THREE.Color(0x0f5472);
+  const color5 = new THREE.Color(0x788ea9);
+  const color6 = new THREE.Color(0xc3bbd7);
+
+
   return (
     <group>
       <mesh position={[0.5, 0.5, -1]}>
         <planeGeometry args={[5, 3, 8, 8]} />
-        <bgGradientShaderMaterial uFreqArray={props.freq} uTime={clock.getElapsedTime()} uColor1={color} uTexture={texture} ref={ref} />
+        {/* <bgGradientShaderMaterial uFreqArray={props.freq} uTime={clock.getElapsedTime()} uColor1={color} uTexture={texture} ref={ref} /> */}
+        <imgBgShaderMaterial uTime={clock.getElapsedTime()} uColor1={color1} uColor2={color2} uColor3={color3} uTexture={texture} ref={ref} />
       </mesh>
       {/* <mesh position={[0, 0, -1]}>
         <planeGeometry args={[3, 2, 8, 8]}/>
