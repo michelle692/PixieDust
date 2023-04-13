@@ -28,7 +28,6 @@ export function Background(props) {
   const bgc = backgroundColor.theme;
   //testing: console.log(bgc);
 
-
   var idx = 0;
   for (var i = 0; i < props.freq.length; i++) {
     if (props.freq[i] >= props.freq[idx]) {
@@ -58,13 +57,27 @@ export function Background(props) {
   const color5 = new THREE.Color(0x788ea9);
   const color6 = new THREE.Color(0xc3bbd7);
 
+  var shader;
+  switch (bgc) {
+    case "image":
+      shader = <imgBgShaderMaterial uTime={clock.getElapsedTime()} uColor1={color1} uColor2={color2} uColor3={color3} uTexture={texture} ref={ref} />;
+      break;
+    case "mood":
+      shader = <bgGradientShaderMaterial uFreqArray={props.freq} uTime={clock.getElapsedTime()} uColor1={color} uTexture={texture} ref={ref} />;
+      break;
+    default:
+      shader = <bgGradientShaderMaterial uFreqArray={props.freq} uTime={clock.getElapsedTime()} uColor1={color} uTexture={texture} ref={ref} />;
+      break;
+  }
+
 
   return (
     <group>
       <mesh position={[0.5, 0.5, -1]}>
         <planeGeometry args={[5, 3, 8, 8]} />
+        {shader}
         {/* <bgGradientShaderMaterial uFreqArray={props.freq} uTime={clock.getElapsedTime()} uColor1={color} uTexture={texture} ref={ref} /> */}
-        <imgBgShaderMaterial uTime={clock.getElapsedTime()} uColor1={color1} uColor2={color2} uColor3={color3} uTexture={texture} ref={ref} />
+        {/* <imgBgShaderMaterial uTime={clock.getElapsedTime()} uColor1={color1} uColor2={color2} uColor3={color3} uTexture={texture} ref={ref} /> */}
       </mesh>
       {/* <mesh position={[0, 0, -1]}>
         <planeGeometry args={[3, 2, 8, 8]}/>
