@@ -10,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "babel-plugin-glsl": "^1.0.0",
+    "extract-colors": "^3.0.0",
     "glsl-dither": "^1.0.1",
     "glsl-noise": "^0.0.0",
     "lamina": "^1.1.23",
