@@ -59,6 +59,8 @@ export function DropDown(props){
   const toggleOpen = () => setIsOpen(!isOpen);
 
   const handleClick = (option) => {
+    console.log("selected", option, "in dropdown");
+    backgroundColor.theme = option;
     setSelectedOption(option);
     toggleOpen();
   };
