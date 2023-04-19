@@ -3,7 +3,9 @@ import React, { useState, useEffect } from "react";
 import { extend } from '@react-three/fiber'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 
+
 extend({ TextGeometry });
+
 
 /* Button CSS */
 const buttonStyle = {
@@ -26,12 +28,24 @@ const buttonStyle = {
   userSelect: "none",
   position: "absolute",
   top: "5vh",
-  right: "20vw",
+  right: "5vw",
 
   "&:hover": {
-    backgroundColor: "rgb(249,250,251)"
+    color: "#000000",
   }
 }
+
+
+const optionStyle = {
+  margin: "0.5rem",
+  backgroundColor: "#252525",
+  width: "200px",
+  height: "20px",
+
+  "&:hover": {
+    color: "#000000",
+  }
+};
 
 //variable for bgc that is changed by dropdown onChange
 const backgroundColor = {};
@@ -39,21 +53,49 @@ const backgroundColor = {};
 export default backgroundColor;
 
 export function DropDown(props){
-  return (
-    <select 
-        id = "backgroundColor" 
-        style={buttonStyle} 
-        //function to set bgc when dropdown option is picked
-        onChange={e => {
-            backgroundColor.theme = e.target.value
-        }}
-    >  
-        <option> ---Choose theme--- </option>  
-        <option value="mood"> Mood </option>  
-        <option value="image"> Image </option> 
-        {/*add options here for more theme choices*/}
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("---Choose theme---");
 
-    </select>
-  
-  )
-}
+  const toggleOpen = () => setIsOpen(!isOpen);
+
+  const handleClick = (option) => {
+    setSelectedOption(option);
+    toggleOpen();
+  };
+  const optionsStyle = {
+    display: isOpen ? "block" : "none",
+    backgroundColor: "#252525",
+    color: "#FFFFFF",
+    padding: "0.5rem",
+    position: "absolute",
+    top: "82px",
+    right: "70px",
+    zIndex: "1",
+    width: "230px",
+    "&:hover": {
+      color: "#000000",
+    }
+  };
+
+return (
+  <div>
+    <button style={buttonStyle} onClick={toggleOpen}>
+      {selectedOption} ▼
+    </button>
+    {isOpen && (
+      <div style={optionsStyle}>
+        <div style={optionStyle} onClick={() => handleClick("---Choose theme---")}>
+          ---Choose theme---
+        </div>
+        <div style={optionStyle} onClick={() => handleClick("Mood")}>
+          Mood
+        </div>
+        <div style={optionStyle} onClick={() => handleClick("Image")}>
+          Image
+        </div>
+      </div>
+    )}
+  </div>
+);
+
+};
