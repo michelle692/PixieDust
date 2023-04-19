@@ -57,7 +57,7 @@ export function Background(props) {
 
   var shader;
   switch (bgc) {
-    case "image":
+    case "Image":
        //function to extract colors, then updates state with extracted colors
       extractColors(image)
       .then(async (value) => {
@@ -74,7 +74,7 @@ export function Background(props) {
       })
       shader = <imgBgShaderMaterial uTime={clock.getElapsedTime()} uColor1={imgColors[0]} uColor2={imgColors[1]} uColor3={imgColors[2]} uTexture={texture} ref={ref} />;
       break;
-    case "mood":
+    case "Mood":
       shader = <bgGradientShaderMaterial uFreqArray={props.freq} uTime={clock.getElapsedTime()} uColor1={color} uTexture={texture} ref={ref} />;
       break;
     default:
