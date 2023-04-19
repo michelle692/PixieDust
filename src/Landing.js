@@ -12,7 +12,7 @@ export function LandingPage(props) {
       <div>
         <Canvas style={{ height: `100vh`, width: '100vw' }} >
           <StartButton click={props.toggleMicrophone} />
-          <ParticleSphere count={15000} />
+          <ParticleSphere count={5000} />
           <Html >
             <ImageUploadBtn loadedTexture={props.loadedTexture}/>
           </Html>

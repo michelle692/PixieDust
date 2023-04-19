@@ -28,9 +28,7 @@ export function Background(props) {
   const [imgColors, setImgColors] = useState([0, 0, 0]);
 
   //receives theme chosen from dropdown. currently in form of string description, ie 'party' and 'mood'
-  //will be undefined if no option is chosen. not sure how to set a default without making the dropdown display the default also :/
   const bgc = backgroundColor.theme;
-  //testing: console.log(bgc);
 
   var idx = 0;
   for (var i = 0; i < props.freq.length; i++) {
@@ -42,19 +40,6 @@ export function Background(props) {
 
   //texture to image
   const image = texture.image
-
-  //function to extract colors, then updates state with extracted colors
-  extractColors(image)
-  .then(async (value) => {
-    let id = await value
-
-    let imgColor1 = new THREE.Color(id[0].hex)
-    let imgColor2 = new THREE.Color(id[1].hex)
-    let imgColor3 = new THREE.Color(id[2].hex)
-  
-    setImgColors([imgColor1, imgColor2, imgColor3])
-  })
-  
 
   const colors = [new THREE.Color(0.5, 0.2, 0.2), 
     new THREE.Color(0.604, 0.388, 0.141), 
@@ -69,19 +54,24 @@ export function Background(props) {
 
   const color = colors[idx];
 
-  /*
-  const color1 = new THREE.Color(0x1f2b14);
-  const color2 = new THREE.Color(0xd1e9ad);
-  const color3 = new THREE.Color(0x6b894b);
-
-  const color4 = new THREE.Color(0x0f5472);
-  const color5 = new THREE.Color(0x788ea9);
-  const color6 = new THREE.Color(0xc3bbd7);
-  */
 
   var shader;
   switch (bgc) {
     case "image":
+       //function to extract colors, then updates state with extracted colors
+      extractColors(image)
+      .then(async (value) => {
+        let id = await value
+
+        if (id.length == 2) {
+          id.push({hex:'#000000'}); // add black as a fallback color
+        }
+        let imgColor1 = new THREE.Color(id[0].hex)
+        let imgColor2 = new THREE.Color(id[1].hex)
+        let imgColor3 = new THREE.Color(id[2].hex)
+      
+        setImgColors([imgColor1, imgColor2, imgColor3])
+      })
       shader = <imgBgShaderMaterial uTime={clock.getElapsedTime()} uColor1={imgColors[0]} uColor2={imgColors[1]} uColor3={imgColors[2]} uTexture={texture} ref={ref} />;
       break;
     case "mood":
@@ -98,13 +88,7 @@ export function Background(props) {
       <mesh position={[0.5, 0.5, -1]}>
         <planeGeometry args={[5, 3, 8, 8]} />
         {shader}
-        {/* <bgGradientShaderMaterial uFreqArray={props.freq} uTime={clock.getElapsedTime()} uColor1={color} uTexture={texture} ref={ref} /> */}
-        {/* <imgBgShaderMaterial uTime={clock.getElapsedTime()} uColor1={color1} uColor2={color2} uColor3={color3} uTexture={texture} ref={ref} /> */}
       </mesh>
-      {/* <mesh position={[0, 0, -1]}>
-        <planeGeometry args={[3, 2, 8, 8]}/>
-        <meshBasicMaterial/>
-      </mesh> */}
     </group>
   )
 }

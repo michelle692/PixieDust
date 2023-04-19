@@ -19,8 +19,11 @@ export function ParticlePlane(props) {
   const texture = props.texture;
   const textSize = [texture.image.width, texture.image.height];
 
+  const freq = props.freq;
+  const bass = freq[1] / 255.0;
+
   // Number of total particles
-  const count = 60000;
+  const count = 150000;
 
   const points = useRef();
 
@@ -55,6 +58,7 @@ export function ParticlePlane(props) {
 
   }, [count]);
 
+
   return (
     <points ref={points}>
       <bufferGeometry>
@@ -77,6 +81,8 @@ export function ParticlePlane(props) {
       <particlizeImgShaderMaterial
         uTexture={texture}
         uTextSize={textSize}
+        uBass={bass}
+        uFreqArray={freq}
         ref={points}
       />
     </points>

@@ -19,7 +19,7 @@ export function PixieDust(props) {
 
           {/* <ParticleSphere count={15000} /> */}
 
-          <ParticlePlane texture={props.texture}/>
+          <ParticlePlane texture={props.texture} freq={freqArray}/>
 
           {/* <MovingStars scale={0.1} move={0} /> */}
 

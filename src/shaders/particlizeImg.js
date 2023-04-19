@@ -6,6 +6,8 @@ const UNIFORM =
 { 
   uTexture: new THREE.Texture(),
   uTextSize: new THREE.Vector2(),
+  uFreqArray: new Uint8Array(20),
+  uBase: 0.0
 }
 
 const VERTEX_SHADER  =
@@ -13,45 +15,53 @@ glsl`
   precision mediump float;
 
   attribute vec3 rgb;
+
+  uniform float uBass;
+  uniform sampler2D uTexture;
+  uniform float[20] uFreqArray;
     
   varying vec2 vUv;
   varying vec3 vColor;
+  varying float noise;
+  varying vec3 fNormal;
 
   void main() {
-    vColor = rgb;
+    // vColor = rgb;
     vUv = vec2(position.x, position.y);
-  
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    float bass = (uFreqArray[8]) / 255.0;
+    float mid = (uFreqArray[4])/ 255.0;
 
-    gl_PointSize = 10.0;
+    vec4 color = texture2D(uTexture, vUv);
+    float disp = (color.b ) * bass;
+
+    float d = (color.r ) * mid;
+    
+    vec3 displacedPosition = position + vec3(disp, 0.0, 0.0);
+  
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPosition, 1.0);
+
+    gl_PointSize = 3.0;
 
   }
 `
 
 const FRAGMENT_SHADER = 
 glsl`
+  precision mediump float;
   uniform sampler2D uTexture;
   uniform vec2 uTextSize;
 
   varying vec2 vUv;
   varying vec3 vColor;
+
+  varying float noise;
+  varying vec3 fNormal;
   
   void main() {
 
     vec3 texture = texture2D(uTexture, vUv).rgb;
+    gl_FragColor = vec4(texture, 1.0);
 
-    // add gray scale
-    // float gray = dot(texture.rgb, vec3(0.6, 0.8, 0.4));
-    // vec3 color = vec3(gray);
-   
-    // if (color.r < 0.05 && color.g < 0.05 && color.b < 0.05) {
-    //   color.r = 0.1;
-    //   color.g = 0.1;
-    //   color.b = 0.1;
-      
-    // }
-
-    gl_FragColor = vec4(texture, 0.1);
     
 
     // add color tint
