@@ -30,8 +30,8 @@ const textBox = {
   cursor: "pointer",
   userSelect: "none",
   position: "absolute",
-  top: "5vh",
-  left: "5vw",
+  top: "-45vh",
+  left: "-45vw",
   paddingLeft: "90px",
   text: "WARNING: Visualization may potentially trigger seizures for people with photosensitive epilepsy. Viewer discretion advised",
   

@@ -15,12 +15,12 @@ export function LandingPage(props) {
           <ParticleSphere count={5000} />
           <Html >
             <ImageUploadBtn loadedTexture={props.loadedTexture}/>
+            <DropDown/>
+            <Warning/>
           </Html>
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
         </Canvas>
-        <DropDown/>
-        <Warning/>
       </div>
   )
 }

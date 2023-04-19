@@ -27,8 +27,8 @@ const buttonStyle = {
   cursor: "pointer",
   userSelect: "none",
   position: "absolute",
-  top: "5vh",
-  right: "5vw",
+  top: "-45vh",
+  right: "-40vw",
 
   "&:hover": {
     color: "#000000",
@@ -68,8 +68,9 @@ export function DropDown(props){
     color: "#FFFFFF",
     padding: "0.5rem",
     position: "absolute",
-    top: "82px",
-    right: "70px",
+    cursor: "pointer",
+    top: "-45vh",
+    right: "-40vw",
     zIndex: "1",
     width: "230px",
     "&:hover": {
