@@ -28,19 +28,30 @@ glsl`
   void main() {
     // vColor = rgb;
     vUv = vec2(position.x, position.y);
-    float bass = (uFreqArray[8]) / 255.0;
-    float mid = (uFreqArray[4])/ 255.0;
+    float high = (uFreqArray[8]) / 270.0;
+    float mid = (uFreqArray[1])/ 255.0;
+    float bass = (uFreqArray[0] / 255.0) * 2.0;
 
     vec4 color = texture2D(uTexture, vUv);
-    float disp = (color.b ) * bass;
+    float disp = (color.r ) * high;
+    float d = 0.0;
 
-    float d = (color.r ) * mid;
+    vec3 displacedPosition = position;
+    displacedPosition += vec3(disp, 0.0, 0.0);
+
     
-    vec3 displacedPosition = position + vec3(disp, 0.0, 0.0);
+    if (color.r < 0.2 && color.g < 0.2 && color.b < 0.2) {
+      d = (color.b + 0.3) * bass;
+      displacedPosition += vec3(-d * 1.2, 0.0, 0.0);
+      gl_PointSize = 10.0 * bass;
+    } else {
+      displacedPosition += vec3(disp, 0.0, disp);
+      gl_PointSize = 6.0 * mid;
+    }
+    
   
     gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPosition, 1.0);
-
-    gl_PointSize = 3.0;
+ 
 
   }
 `

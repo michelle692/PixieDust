@@ -34,11 +34,10 @@ class App extends React.Component {
     this.audioAnalyzer = new AudioAnalyzer();
 
     this.canvas = React.createRef();
-    this.textureURL = "https://pixiedust-vip.s3.amazonaws.com/Dali.jpeg";
 
-    const textureLoader = new THREE.TextureLoader()
-    textureLoader.crossOrigin = "Anonymous"
-    this.loadedTexture(textureLoader.load(this.textureURL))
+    const image = require('./assets/images/cat.png');
+    this.texture = new THREE.TextureLoader().load(image);
+    console.log("the texture IS THIS ", this.texture)
   }
 
   applySmoothDamping(normalized) {

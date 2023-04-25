@@ -12,7 +12,7 @@ export function PixieDust(props) {
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 2], zoom: 550}} orthographic={true}>
+      <Canvas >
         <Suspense fallback={null}>
     
           <Background texture={props.texture} freq={freqArray}/>
@@ -24,7 +24,7 @@ export function PixieDust(props) {
           {/* <MovingStars scale={0.1} move={0} /> */}
 
           {/* <OrbitControls /> */}
-          <OrthographicCamera makeDefault zoom={500} position={[0.5, 0.5, 200]} />
+          <OrthographicCamera makeDefault zoom={550} position={[0.5, 0.5, 200]} />
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
           <Environment preset="warehouse" />

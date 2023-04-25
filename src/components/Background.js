@@ -28,7 +28,11 @@ export function Background(props) {
   const [imgColors, setImgColors] = useState([0, 0, 0]);
 
   //receives theme chosen from dropdown. currently in form of string description, ie 'party' and 'mood'
-  const bgc = backgroundColor.theme;
+  var bgc = backgroundColor.theme;
+
+  if (bgc == null) {
+    bgc = "Image";
+  }
 
   var idx = 0;
   for (var i = 0; i < props.freq.length; i++) {
@@ -86,7 +90,7 @@ export function Background(props) {
   return (
     <group>
       <mesh position={[0.5, 0.5, -1]}>
-        <planeGeometry args={[5, 3, 8, 8]} />
+        <planeGeometry args={[4, 2, 8, 8]} />
         {shader}
       </mesh>
     </group>

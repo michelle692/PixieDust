@@ -23,7 +23,7 @@ export function ParticlePlane(props) {
   const bass = freq[1] / 255.0;
 
   // Number of total particles
-  const count = 150000;
+  const count = 155000;
 
   const points = useRef();
 
