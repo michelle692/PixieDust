@@ -27,7 +27,7 @@ export function PixieDust(props) {
           <OrthographicCamera makeDefault zoom={550} position={[0.5, 0.5, 200]} />
           <pointLight position={[500, 500, 0]} />
           <ambientLight intensity={0.4} />
-          <Environment preset="warehouse" />
+          {/* <Environment preset="warehouse" /> */}
         </Suspense>
       </Canvas>
     </div>
